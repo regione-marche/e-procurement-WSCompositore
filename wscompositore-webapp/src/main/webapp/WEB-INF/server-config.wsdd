@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="enableNamespacePrefixOptimization" value="true"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <service name="ServizioCompositore" provider="java:RPC" style="wrapped" use="literal">
+  <operation name="compila" qname="ns1:compila" soapAction="" xmlns:ns1="http://genmod.bl.gene.eldasoft.it">
+   <parameter qname="ns1:nomeModello" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns1:idApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns1:codiceApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns1:fault" type="ns1:CompositoreException"/>
+  </operation>
+  <operation name="componiModello" qname="ns2:componiModello" returnQName="ns2:componiModelloReturn" returnType="xsd:string" soapAction="" xmlns:ns2="http://genmod.bl.gene.eldasoft.it" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns2:nomeModello" type="xsd:string"/>
+   <parameter qname="ns2:entita" type="xsd:string"/>
+   <parameter qname="ns2:elencoChiavi" type="xsd:string"/>
+   <parameter qname="ns2:valoriChiavi" type="xsd:string"/>
+   <parameter qname="ns2:idApplicazione" type="xsd:string"/>
+   <parameter qname="ns2:codiceApplicazione" type="xsd:string"/>
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns2:fault" type="ns2:CompositoreException"/>
+  </operation>
+  <operation name="componiModelloConParametri" qname="ns3:componiModelloConParametri" returnQName="ns3:componiModelloConParametriReturn" returnType="xsd:string" soapAction="" xmlns:ns3="http://genmod.bl.gene.eldasoft.it" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns3:nomeModello" type="xsd:string"/>
+   <parameter qname="ns3:entita" type="xsd:string"/>
+   <parameter qname="ns3:elencoChiavi" type="xsd:string"/>
+   <parameter qname="ns3:valoriChiavi" type="xsd:string"/>
+   <parameter qname="ns3:idApplicazione" type="xsd:string"/>
+   <parameter qname="ns3:codiceApplicazione" type="xsd:string"/>
+   <parameter qname="ns3:idSessione" type="xsd:int"/>
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns3:fault" type="ns3:CompositoreException"/>
+  </operation>
+  <operation name="eliminaFileComposto" qname="ns4:eliminaFileComposto" soapAction="" xmlns:ns4="http://genmod.bl.gene.eldasoft.it">
+   <parameter qname="ns4:nomeFileComposto" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns4:idApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns4:codiceApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="compilaModello" qname="ns5:compilaModello" soapAction="" xmlns:ns5="http://genmod.bl.gene.eldasoft.it">
+   <parameter qname="ns5:nomeModello" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns5:idApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns5:codiceApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns5:registri" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns5:fault" type="ns5:CompositoreException"/>
+  </operation>
+  <operation name="componi" qname="ns6:componi" returnQName="ns6:componiReturn" returnType="xsd:string" soapAction="" xmlns:ns6="http://genmod.bl.gene.eldasoft.it" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns6:nomeModello" type="xsd:string"/>
+   <parameter qname="ns6:entita" type="xsd:string"/>
+   <parameter qname="ns6:elencoChiavi" type="xsd:string"/>
+   <parameter qname="ns6:valoriChiavi" type="xsd:string"/>
+   <parameter qname="ns6:idApplicazione" type="xsd:string"/>
+   <parameter qname="ns6:codiceApplicazione" type="xsd:string"/>
+   <parameter qname="ns6:registri" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns6:generaPdf" type="xsd:boolean"/>
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns6:fault" type="ns6:CompositoreException"/>
+  </operation>
+  <operation name="compilaModelloSenzaConnessioneDB" qname="ns7:compilaModelloSenzaConnessioneDB" soapAction="" xmlns:ns7="http://genmod.bl.gene.eldasoft.it">
+   <parameter qname="ns7:nomeModello" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns7:idApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns7:codiceApplicazione" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns7:registri" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns7:fault" type="ns7:CompositoreException"/>
+  </operation>
+  <operation name="componiModelloSenzaConnessioneDB" qname="ns8:componiModelloSenzaConnessioneDB" returnQName="ns8:componiModelloSenzaConnessioneDBReturn" returnType="xsd:string" soapAction="" xmlns:ns8="http://genmod.bl.gene.eldasoft.it" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns8:nomeModello" type="xsd:string"/>
+   <parameter qname="ns8:nomeFileSorgenteDati" type="xsd:string"/>
+   <parameter qname="ns8:idApplicazione" type="xsd:string"/>
+   <parameter qname="ns8:codiceApplicazione" type="xsd:string"/>
+   <parameter qname="ns8:registri" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns8:fault" type="ns8:CompositoreException"/>
+  </operation>
+  <operation name="componiStream" qname="ns9:componiStream" returnQName="ns9:componiStreamReturn" returnType="xsd:base64Binary" soapAction="" xmlns:ns9="http://genmod.bl.gene.eldasoft.it" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns9:nomeModello" type="xsd:string"/>
+   <parameter qname="ns9:contenutoModello" type="xsd:base64Binary"/>
+   <parameter qname="ns9:entita" type="xsd:string"/>
+   <parameter qname="ns9:elencoChiavi" type="xsd:string"/>
+   <parameter qname="ns9:valoriChiavi" type="xsd:string"/>
+   <parameter qname="ns9:idApplicazione" type="xsd:string"/>
+   <parameter qname="ns9:codiceApplicazione" type="xsd:string"/>
+   <parameter qname="ns9:registri" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns9:generaPdf" type="xsd:boolean" />
+   <fault class="it.eldasoft.gene.bl.genmod.CompositoreException" qname="ns9:fault" type="ns9:CompositoreException"/>
+  </operation>
+  <operation name="getEstensioniModelloOutputPDF" qname="ns10:getEstensioniModelloOutputPDF" returnQName="ns10:getEstensioniModelloOutputPDFResponseResult" returnType="ns10:ArrayOf_xsd_string" soapAction="" xmlns:ns10="http://genmod.bl.gene.eldasoft.it" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  </operation>
+  <parameter name="allowedMethods" value="componiModelloConParametri componiModello componi eliminaFileComposto compila compilaModello compilaModelloSenzaConnessioneDB componiModelloSenzaConnessioneDB componiStream getEstensioniModelloOutputPDF"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="wsdlPortType" value="ServizioCompositore"/>
+  <parameter name="className" value="it.eldasoft.gene.bl.genmod.ServizioCompositore"/>
+  <parameter name="wsdlServicePort" value="ServizioCompositore"/>
+  <parameter name="schemaQualified" value="http://genmod.bl.gene.eldasoft.it"/>
+  <parameter name="wsdlTargetNamespace" value="http://genmod.bl.gene.eldasoft.it"/>
+  <parameter name="wsdlServiceElement" value="ServizioCompositoreService"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns7:CompositoreException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:it.eldasoft.gene.bl.genmod.CompositoreException" xmlns:ns7="http://genmod.bl.gene.eldasoft.it"/>
+  <arrayMapping innerType="xsd:anyType" languageSpecificType="java:java.lang.Object[]" qname="ns8:ArrayOf_xsd_anyType" xmlns:ns8="http://genmod.bl.gene.eldasoft.it" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="true"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>

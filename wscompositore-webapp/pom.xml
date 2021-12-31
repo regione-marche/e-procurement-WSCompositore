@@ -1,0 +1,272 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>it.maggioli.eldasoft.commons</groupId>
+		<artifactId>wscompositore-pom</artifactId>
+		<version>3.0.0</version>
+	</parent>
+	<artifactId>wscompositore-webapp</artifactId>
+	<packaging>war</packaging>
+	<organization>
+		<name>Maggioli S.p.A.</name>
+	</organization>
+
+	<name>Webapp Web Service Compositore Modelli</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>it.maggioli.eldasoft.commons</groupId>
+			<artifactId>wscompositore-engine</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<filter.filename>${filter}</filter.filename>	
+		<compo.native.windows.path>../build-compositore/c/windows</compo.native.windows.path>
+		<compo.native.linux.path>../build-compositore/c/linux</compo.native.linux.path>
+		<compo.native.year>2019</compo.native.year>
+		<compo.native.version>Set06-5.8.0</compo.native.version>
+		<compo.java.path>../build-compositore/java</compo.java.path>
+		<compo.java.version>2020_12_17</compo.java.version>
+		<!--<tomcat.url>http://localhost:8090/manager</tomcat.url>-->
+	</properties>
+
+	<profiles>
+        <profile>
+            <id>env-dev</id>
+            <activation>
+				<activeByDefault>true</activeByDefault>
+                <property>
+					<!-- Activate: mvn -Denv=dev <phase> -->
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+			<build>
+				<plugins>
+
+					
+				</plugins>
+			</build>
+        </profile>
+    </profiles>
+
+	<build>
+		<filters>
+			<filter>src/main/filters/${filter.filename}.properties</filter>
+			<filter>custom-filter.properties</filter>
+		</filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+		<plugins>
+			<plugin>
+				<!-- si validano i parametri della chiamata -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.4.1</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+						<rules>
+							<requireProperty>
+								<property>filter</property>
+								<message>Valorizzare il parametro -Dfilter con un NOME FILE (senza estensione) presente nella cartella src/main/filters</message>
+							</requireProperty>
+						</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>		
+
+			<plugin>
+				<!-- espande in una cartella di appoggio alcuni file presenti nelle dipendenze per le successive elaborazioni -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>unpack-utils-dependencies</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dependencies-unpacked/eldautils</outputDirectory>
+							<verbose>true</verbose>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<appendOutput>true</appendOutput>
+							<includeGroupIds>it.maggioli.eldasoft.commons</includeGroupIds>
+							<includeArtifactIds>eldasoft-utils</includeArtifactIds>
+							<includes>*Resources.properties</includes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-engine-dependencies</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dependencies-unpacked/wscompositore-engine</outputDirectory>
+							<verbose>true</verbose>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<appendOutput>true</appendOutput>
+							<includeGroupIds>it.maggioli.eldasoft.commons</includeGroupIds>
+							<includeArtifactIds>wscompositore-engine</includeArtifactIds>
+							<includes>*Resources.properties</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-context</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/war/work/META-INF/</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>src/main/xml</directory>
+									<includes>
+										<include>context.xml</include>
+									</includes>
+									<filtering>true</filtering>
+								</resource>
+							</resources>              
+						</configuration>            
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- task di fusione dei file di resources -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>                   	   
+					<execution>
+						<id>process-resources-antrun</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>                        
+						<configuration>
+							<target>
+								<echo>Merging resources</echo>
+								<concat destfile="target/war/work/resources/classes/CompositoreResources.properties" append="true">
+									<fileset dir="target/dependencies-unpacked/wscompositore-engine" includes="*Resources.properties" />
+									<fileset dir="target/dependencies-unpacked/eldautils" includes="*Resources.properties" />
+								</concat>
+							</target>
+						</configuration>
+					</execution>                    
+					<execution>
+						<id>merge-properties-antrun</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<!-- task di generazione file di context -->
+						<configuration>
+							<target>
+								<echo>Generazione ${build.finalName}.xml in corso...</echo>
+								<copy file="${project.build.directory}/war/work/META-INF/context.xml" tofile="${project.build.directory}/${build.finalName}.xml" />
+								<echo>Generazione ${build.finalName}.xml effettuato...</echo>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- touch del web.xml in modo da generare un artefatto "piu' aggiornato" per il deploy -->
+						<id>touch web.xml</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>                        
+						<configuration>
+							<target>
+								<copy file="src/main/webapp/WEB-INF/web.xml" tofile="target/war/work/resources/web.xml"/>
+								<echo>web.xml touched generated</echo>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- build con un unico file di resources -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>target/war/work/resources</directory>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${compo.native.windows.path}/${compo.native.year}/template</directory>
+							<targetPath>WEB-INF/compo/windows</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${compo.native.windows.path}/${compo.native.year}/${compo.native.version}</directory>
+							<targetPath>WEB-INF/compo/windows</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${compo.native.linux.path}/${compo.native.year}/template</directory>
+							<targetPath>WEB-INF/compo/linux</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${compo.native.linux.path}/${compo.native.year}/${compo.native.version}</directory>
+							<targetPath>WEB-INF/compo/linux</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${compo.java.path}/${compo.java.version}</directory>
+							<targetPath>WEB-INF/compo-java</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+		<finalName>WSCompositore</finalName>
+	</build>
+</project>

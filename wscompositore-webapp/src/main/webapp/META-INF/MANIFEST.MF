@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: wscompositore-engine.jar
+Specification-Vendor: EldaSoft S.p.A.
+Specification-Title: Web Service Compositore Modelli
+

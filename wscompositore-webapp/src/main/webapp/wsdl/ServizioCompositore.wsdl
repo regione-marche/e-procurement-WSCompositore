@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://genmod.bl.gene.eldasoft.it" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://genmod.bl.gene.eldasoft.it" xmlns:intf="http://genmod.bl.gene.eldasoft.it" xmlns:tns1="http://lang.java" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://genmod.bl.gene.eldasoft.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://lang.java"/>
+   <element name="compila">
+    <complexType>
+     <sequence>
+      <element name="nomeModello" type="xsd:string"/>
+      <element name="idApplicazione" type="xsd:string"/>
+      <element name="codiceApplicazione" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="compilaResponse">
+    <complexType/>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="CompositoreException">
+    <sequence>
+     <element name="cause" nillable="true" type="xsd:anyType"/>
+     <element name="chiaveResourceBundle" nillable="true" type="xsd:string"/>
+     <element name="codiceErrore" nillable="true" type="xsd:string"/>
+     <element name="famiglia" nillable="true" type="xsd:string"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+     <element name="parametri" nillable="true" type="impl:ArrayOf_xsd_string"/>
+    </sequence>
+   </complexType>
+   <element name="fault" type="impl:CompositoreException"/>
+   <element name="compilaModello">
+    <complexType>
+     <sequence>
+      <element name="nomeModello" type="xsd:string"/>
+      <element name="idApplicazione" type="xsd:string"/>
+      <element name="codiceApplicazione" type="xsd:string"/>
+      <element name="registri" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="compilaModelloResponse">
+    <complexType/>
+   </element>
+   <element name="compilaModelloSenzaConnessioneDB">
+    <complexType>
+     <sequence>
+      <element name="nomeModello" type="xsd:string"/>
+      <element name="idApplicazione" type="xsd:string"/>
+      <element name="codiceApplicazione" type="xsd:string"/>
+      <element name="registri" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="compilaModelloSenzaConnessioneDBResponse">
+    <complexType/>
+   </element>
+   <element name="componiModello">
+    <complexType>
+     <sequence>
+      <element name="nomeModello" type="xsd:string"/>
+      <element name="entita" type="xsd:string"/>
+      <element name="elencoChiavi" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="valoriChiavi" type="xsd:string"/>
+      <element name="idApplicazione" type="xsd:string"/>
+      <element name="codiceApplicazione" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componiModelloResponse">
+    <complexType>
+     <sequence>
+      <element name="componiModelloReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componiModelloConParametri">
+    <complexType>
+     <sequence>
+      <element name="nomeModello" type="xsd:string"/>
+      <element name="entita" type="xsd:string"/>
+      <element name="elencoChiavi" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="valoriChiavi" type="xsd:string"/>
+      <element name="idApplicazione" type="xsd:string"/>
+      <element name="codiceApplicazione" type="xsd:string"/>
+      <element name="idSessione" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componiModelloConParametriResponse">
+    <complexType>
+     <sequence>
+      <element name="componiModelloConParametriReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componi">
+    <complexType>
+     <sequence>
+     	<element name="nomeModello" type="xsd:string" />
+     	<element name="entita" type="xsd:string" />
+     	<element name="elencoChiavi" type="xsd:string" />
+     	<element maxOccurs="unbounded" name="valoriChiavi"
+     		type="xsd:string" />
+     	<element name="idApplicazione" type="xsd:string" />
+     	<element name="codiceApplicazione" type="xsd:string" />
+     	<element name="registri" type="xsd:string" />
+     	<element name="generaPdf" nillable="true" type="boolean" />
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componiResponse">
+    <complexType>
+     <sequence>
+      <element name="componiReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componiModelloSenzaConnessioneDB">
+    <complexType>
+     <sequence>
+      <element name="nomeModello" type="xsd:string"/>
+      <element name="nomeFileSorgenteDati" type="xsd:string"/>
+      <element name="idApplicazione" type="xsd:string"/>
+      <element name="codiceApplicazione" type="xsd:string"/>
+      <element name="registri" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componiModelloSenzaConnessioneDBResponse">
+    <complexType>
+     <sequence>
+      <element name="componiModelloSenzaConnessioneDBReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="eliminaFileComposto">
+    <complexType>
+     <sequence>
+      <element name="nomeFileComposto" type="xsd:string"/>
+      <element name="idApplicazione" type="xsd:string"/>
+      <element name="codiceApplicazione" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="eliminaFileCompostoResponse">
+    <complexType/>
+   </element>
+   <element name="componiStream">
+    <complexType>
+     <sequence>
+     	<element name="nomeModello" type="xsd:string" />
+     	<element name="contenutoModello" type="xsd:base64Binary" />
+     	<element name="entita" type="xsd:string" />
+     	<element name="elencoChiavi" type="xsd:string" />
+     	<element maxOccurs="unbounded" name="valoriChiavi"
+     		type="xsd:string" />
+     	<element name="idApplicazione" type="xsd:string" />
+     	<element name="codiceApplicazione" type="xsd:string" />
+     	<element name="registri" type="xsd:string" />
+     	<element name="generaPdf" nillable="true" type="boolean" />
+     </sequence>
+    </complexType>
+   </element>
+   <element name="componiStreamResponse">
+    <complexType>
+     <sequence>
+      <element name="componiStreamReturn" type="xsd:base64Binary"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getEstensioniModelloOutputPDF">
+   	<complexType>
+   		<sequence>
+
+   		</sequence>
+   	</complexType>
+   </element>
+   <element name="getEstensioniModelloOutputPDFResponse">
+   	<complexType>
+   		<sequence>
+   		<element name="getEstensioniModelloOutputPDFResponseResult" type="impl:ArrayOf_xsd_string"/>
+   		</sequence>
+   	</complexType>
+   </element>
+        </schema>
+ </wsdl:types>
+
+   <wsdl:message name="componiModelloSenzaConnessioneDBRequest">
+
+      <wsdl:part element="impl:componiModelloSenzaConnessioneDB" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiRequest">
+
+      <wsdl:part element="impl:componi" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiStreamResponse">
+
+      <wsdl:part element="impl:componiStreamResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiStreamRequest">
+
+      <wsdl:part element="impl:componiStream" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="compilaModelloSenzaConnessioneDBResponse">
+
+      <wsdl:part element="impl:compilaModelloSenzaConnessioneDBResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiResponse">
+
+      <wsdl:part element="impl:componiResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="eliminaFileCompostoResponse">
+
+      <wsdl:part element="impl:eliminaFileCompostoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="eliminaFileCompostoRequest">
+
+      <wsdl:part element="impl:eliminaFileComposto" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiModelloConParametriResponse">
+
+      <wsdl:part element="impl:componiModelloConParametriResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="CompositoreException">
+
+      <wsdl:part element="impl:fault" name="fault">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiModelloRequest">
+
+      <wsdl:part element="impl:componiModello" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="compilaModelloResponse">
+
+      <wsdl:part element="impl:compilaModelloResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiModelloSenzaConnessioneDBResponse">
+
+      <wsdl:part element="impl:componiModelloSenzaConnessioneDBResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="compilaRequest">
+
+      <wsdl:part element="impl:compila" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiModelloResponse">
+
+      <wsdl:part element="impl:componiModelloResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="compilaModelloSenzaConnessioneDBRequest">
+
+      <wsdl:part element="impl:compilaModelloSenzaConnessioneDB" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="compilaResponse">
+
+      <wsdl:part element="impl:compilaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="componiModelloConParametriRequest">
+
+      <wsdl:part element="impl:componiModelloConParametri" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="compilaModelloRequest">
+
+      <wsdl:part element="impl:compilaModello" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getEstensioniModelloOutputPDFRequest">
+   	<wsdl:part name="parameters" element="impl:getEstensioniModelloOutputPDF"></wsdl:part>
+   </wsdl:message>
+   <wsdl:message name="getEstensioniModelloOutputPDFResponse">
+   	<wsdl:part name="parameters"
+   		element="impl:getEstensioniModelloOutputPDFResponse">
+   	</wsdl:part>
+   </wsdl:message>
+   <wsdl:portType name="ServizioCompositore">
+
+      <wsdl:operation name="compila">
+
+         <wsdl:input message="impl:compilaRequest" name="compilaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:compilaResponse" name="compilaResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="compilaModello">
+
+         <wsdl:input message="impl:compilaModelloRequest" name="compilaModelloRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:compilaModelloResponse" name="compilaModelloResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="compilaModelloSenzaConnessioneDB">
+
+         <wsdl:input message="impl:compilaModelloSenzaConnessioneDBRequest" name="compilaModelloSenzaConnessioneDBRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:compilaModelloSenzaConnessioneDBResponse" name="compilaModelloSenzaConnessioneDBResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="componiModello">
+
+         <wsdl:input message="impl:componiModelloRequest" name="componiModelloRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:componiModelloResponse" name="componiModelloResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="componiModelloConParametri">
+
+         <wsdl:input message="impl:componiModelloConParametriRequest" name="componiModelloConParametriRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:componiModelloConParametriResponse" name="componiModelloConParametriResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="componi">
+
+         <wsdl:input message="impl:componiRequest" name="componiRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:componiResponse" name="componiResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="componiModelloSenzaConnessioneDB">
+
+         <wsdl:input message="impl:componiModelloSenzaConnessioneDBRequest" name="componiModelloSenzaConnessioneDBRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:componiModelloSenzaConnessioneDBResponse" name="componiModelloSenzaConnessioneDBResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="eliminaFileComposto">
+
+         <wsdl:input message="impl:eliminaFileCompostoRequest" name="eliminaFileCompostoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:eliminaFileCompostoResponse" name="eliminaFileCompostoResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="componiStream">
+
+         <wsdl:input message="impl:componiStreamRequest" name="componiStreamRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:componiStreamResponse" name="componiStreamResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:CompositoreException" name="CompositoreException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getEstensioniModelloOutputPDF">
+      	<wsdl:input message="impl:getEstensioniModelloOutputPDFRequest"></wsdl:input>
+      	<wsdl:output message="impl:getEstensioniModelloOutputPDFResponse"></wsdl:output>
+      </wsdl:operation>
+   </wsdl:portType>
+
+   <wsdl:binding name="ServizioCompositoreSoapBinding"
+   	type="impl:ServizioCompositore">
+
+   	<wsdlsoap:binding style="document"
+   		transport="http://schemas.xmlsoap.org/soap/http" />
+
+   	<wsdl:operation name="compila">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="compilaRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output name="compilaResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="compilaModello">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="compilaModelloRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output name="compilaModelloResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="compilaModelloSenzaConnessioneDB">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="compilaModelloSenzaConnessioneDBRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output
+   			name="compilaModelloSenzaConnessioneDBResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="componiModello">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="componiModelloRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output name="componiModelloResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="componiModelloConParametri">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="componiModelloConParametriRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output name="componiModelloConParametriResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="componi">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="componiRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output name="componiResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="componiModelloSenzaConnessioneDB">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="componiModelloSenzaConnessioneDBRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output
+   			name="componiModelloSenzaConnessioneDBResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="eliminaFileComposto">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="eliminaFileCompostoRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output name="eliminaFileCompostoResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="componiStream">
+
+   		<wsdlsoap:operation soapAction="" />
+
+   		<wsdl:input name="componiStreamRequest">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:input>
+
+   		<wsdl:output name="componiStreamResponse">
+
+   			<wsdlsoap:body use="literal" />
+
+   		</wsdl:output>
+
+   		<wsdl:fault name="CompositoreException">
+
+   			<wsdlsoap:fault name="CompositoreException"
+   				use="literal" />
+
+   		</wsdl:fault>
+
+   	</wsdl:operation>
+
+   	<wsdl:operation name="getEstensioniModelloOutputPDF">
+   		<wsdlsoap:operation
+   			soapAction="http://genmod.bl.gene.eldasoft.it/getEstensioniModelloOutputPDF" />
+   		<wsdl:input>
+   			<wsdlsoap:body use="literal" />
+   		</wsdl:input>
+   		<wsdl:output>
+   			<wsdlsoap:body use="literal" />
+   		</wsdl:output>
+   	</wsdl:operation>
+   </wsdl:binding>
+
+   <wsdl:service name="ServizioCompositoreService">
+
+      <wsdl:port binding="impl:ServizioCompositoreSoapBinding" name="ServizioCompositore">
+
+         <wsdlsoap:address location="http://localhost:8080/WSCompositore/services/ServizioCompositore"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>it.maggioli.eldasoft.commons</groupId>
+		<artifactId>wscompositore-pom</artifactId>
+		<version>3.0.0</version>
+	</parent>
+	<artifactId>wscompositore-engine</artifactId>
+	<packaging>jar</packaging>
+	<organization>
+		<name>Maggioli S.p.A.</name>
+	</organization>
+
+	<name>Core engine Web Service Compositore Modelli</name>
+</project>

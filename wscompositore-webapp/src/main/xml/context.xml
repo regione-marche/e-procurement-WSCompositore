@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/WSCompositore">
+
+	<!-- SEZIONE FISSA -->
+	
+	<!--
+	Dimensione del pool dei compositori disponibili a gestire richieste contemporanee.
+	DEFAULT: 10 
+	 -->
+	<Environment name="poolCompositori.dimensione" value="${poolCompositori.dimensione}" type="java.lang.Integer" override="false" />
+	
+	<!-- 
+	Sottocartella dei modelli da utilizzare come area di destinazione dei testi composti
+	DEFAULT: out/
+	 -->
+	<Environment name="pathModelliComposti.relativa" value="out/" type="java.lang.String" override="false" />
+	
+	<!-- 
+	Separatore dei parametri multivalore.
+	DEFAULT: |
+	 -->
+	<Environment name="param.separator" value="|" type="java.lang.String" override="false" />
+	
+	<!-- SEZIONE DA CONFIGURARE ALL'ATTO DELL'INSTALLAZIONE -->
+	
+	<!-- 
+	[COMPOSITORE JAVA]
+
+	Path completo del batch esterno per il lancio del compositore JAVA:
+		- start.bat per WINDOWS
+		- start.sh per LINUX
+	NOTA: accertarsi che il file abbia i diritti di esecuzione per l'utente che esegue tomcat.
+	 -->
+	<Environment name="path.compo.java" value="${path.compo.java}" type="java.lang.String" override="false" />
+
+	<!-- 
+	[COMPOSITORE LEGACY (ESEGUIBILE SCRITTO IN C)]
+
+	Path completo dell'eseguibile esterno per il lancio del compositore LEGACY scritto in C:
+		- compo_odbc.exe o compo_jdbc.exe per WINDOWS
+		- oppure compo_jdbc per LINUX
+	NOTA: accertarsi che il file abbia i diritti di esecuzione per l'utente che esegue tomcat.
+	 -->
+	<Environment name="path.compo.legacy" value="${path.compo.legacy}" type="java.lang.String" override="false" />
+
+	<!--
+	[ESTENSIONI MODELLI DA ELABORARE CON IL COMPOSITORE JAVA]
+	
+	Indicare le estensioni, separate da "param.separator", dei file da elaborare con il nuovo compositore Java (* vuol dire tutte le estensioni).
+	
+	ESEMPIO: *
+	ESEMPIO: DOCX|RTF
+	-->
+	<Environment name="input.compo.java" value="${input.compo.java}" type="java.lang.String" override="false" />
+	
+	<!--
+	[TIPOLOGIA DBMS]
+
+	Dato un [idApplicazione] che identifica un applicativo connesso ad un database sul quale eseguire il compositore, questa 
+	variabile indica a quale tipologia di database ci si riferisce. Valori ammessi:
+	ORA=Oracle
+	POS=PostgreSQL
+	MSQ=SQL Server
+	IMPORTANTE: se l'applicativo identificato da [idApplicazione] non si connette MAI al db NON VA INSERITA ALCUNA RIGA!
+
+	ESEMPIO:
+	<Environment name="dbms.pg" value="ORA" type="java.lang.String" override="false" />
+	 -->
+	${elenco.dbms}
+
+	<!--
+	[PARAMETRI DI CONNESSIONE AL DB]
+	 
+	Per ogni [idApplicazione] vanno definite 1 oppure 2 configurazioni contenenti il set di parametri da utilizzare per l'accesso al 
+	database, a seconda della modalità di connessione via JDBC o via ODBC.
+	NOTA BENE: la configurazione con suffisso ".DSN" SERVE ESCLUSIVAMENTE in caso di utilizzo del COMPOSITORE LEGACY compo_odbc! 
+	
+	CASO STANDARD: "connectStringParam.<idApplicazione>.JDBC"
+	USO: consente la connessione tramite il nuovo compositore Java oppure con il compositore legacy compo_jdbc.
+	FORMATO: 3 parametri <url>|<username>|<password>, separati da "param.separator"
+	ESEMPI:
+	- Oracle: "jdbc:oracle:thin:@LOCALHOST:1521:ORCL|<username>|<password>"
+	- PostgreSQL: "jdbc:postgresql://localhost:5432/<databaseName>|<username>|<password>"
+	- SQL Server: "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;DatabaseName=<databaseName>|<username>|<password>" 
+
+	CASO ODBC: "connectStringParam.<idApplicazione>.DSN"
+	USO: consente la connessione tramite il compositore legacy compo_odbc PREVIA DEFINIZIONE DEI DSN DI SISTEMA ODBC32.
+	FORMATO: 3 parametri <dsnname>|<username>|<password>, separati da "param.separator"
+	-->
+	${elenco.connectStringParam}
+
+	<!-- 
+	Per ogni [idApplicazione] e per ogni [codiceApplicazione] definire una riga aggiungendo ".", 
+	l'id applicazione, quindi di nuovo "." e infine il codice applicazione nella chiave. 
+	Il valore assegnato è il corrispondente path alla cartella dei modelli presente nell'area shared
+
+	ESEMPI:
+	<Environment name="pathModelli.awc.W0" value="\\prodata/Sviluppo/Test/Java/GenRic/Modelli/" type="java.lang.String" override="false" />
+	<Environment name="pathModelli.awc.W0" value="D:/Test/Java/GenRic/Modelli/" type="java.lang.String" override="false" />
+	ATTENZIONE: INSERIRE IL CARATTERE "/" ALLA FINE 
+	 -->
+	${elenco.pathModelli}
+
+</Context>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ServizioCompositoreService WSDL service -->
+
+  <service name="ServizioCompositore" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://genmod.bl.gene.eldasoft.it"/>
+      <parameter name="wsdlServiceElement" value="ServizioCompositoreService"/>
+      <parameter name="schemaQualified" value="http://genmod.bl.gene.eldasoft.it"/>
+      <parameter name="wsdlServicePort" value="ServizioCompositore"/>
+      <parameter name="className" value="it.eldasoft.gene.bl.genmod.ServizioCompositore"/>
+      <parameter name="wsdlPortType" value="ServizioCompositore"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" name="compila" qname="operNS:compila" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" name="compilaModello" qname="operNS:compilaModello" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:registri" type="tns:string"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" name="compilaModelloSenzaConnessioneDB" qname="operNS:compilaModelloSenzaConnessioneDB" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:registri" type="tns:string"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" xmlns:retNS="http://genmod.bl.gene.eldasoft.it" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="componiModello" qname="operNS:componiModello" returnQName="retNS:componiModelloReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:entita" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:elencoChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:valoriChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" xmlns:retNS="http://genmod.bl.gene.eldasoft.it" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="componiModelloConParametri" qname="operNS:componiModelloConParametri" returnQName="retNS:componiModelloConParametriReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:entita" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:elencoChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:valoriChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idSessione" type="tns:int"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" xmlns:retNS="http://genmod.bl.gene.eldasoft.it" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="componi" qname="operNS:componi" returnQName="retNS:componiReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:entita" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:elencoChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:valoriChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:registri" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:generaPdf" type="tns:boolean"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" xmlns:retNS="http://genmod.bl.gene.eldasoft.it" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="componiModelloSenzaConnessioneDB" qname="operNS:componiModelloSenzaConnessioneDB" returnQName="retNS:componiModelloSenzaConnessioneDBReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeFileSorgenteDati" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:registri" type="tns:string"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" name="eliminaFileComposto" qname="operNS:eliminaFileComposto" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeFileComposto" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" xmlns:retNS="http://genmod.bl.gene.eldasoft.it" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="componiStream" qname="operNS:componiStream" returnQName="retNS:componiStreamReturn" returnType="rtns:base64Binary" soapAction="">
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nomeModello" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:contenutoModello" type="tns:base64Binary"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:entita" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:elencoChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:valoriChiavi" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codiceApplicazione" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:registri" type="tns:string"/>
+        <parameter xmlns:pns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:generaPdf" type="tns:boolean"/>
+        <fault xmlns:fns="http://genmod.bl.gene.eldasoft.it" xmlns:tns="http://genmod.bl.gene.eldasoft.it" name="CompositoreException" qname="fns:fault" class="it.eldasoft.gene.bl.genmod.CompositoreException" type="tns:CompositoreException"/>
+      </operation>
+      <operation xmlns:operNS="http://genmod.bl.gene.eldasoft.it" xmlns:retNS="http://genmod.bl.gene.eldasoft.it" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getEstensioniModelloOutputPDF" qname="operNS:getEstensioniModelloOutputPDF" returnQName="retNS:getEstensioniModelloOutputPDFReturn" returnType="retNS:ArrayOf_xsd_string" soapAction="">
+      </operation>
+
+      <parameter name="allowedMethods" value="componiModello componiModelloConParametri componiStream componiModelloSenzaConnessioneDB componi compilaModelloSenzaConnessioneDB compila eliminaFileComposto compilaModello getEstensioniModelloOutputPDF"/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiModelloConParametri" type="java:it.eldasoft.gene.bl.genmod.ComponiModelloConParametri" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiModelloResponse" type="java:it.eldasoft.gene.bl.genmod.ComponiModelloResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiResponse" type="java:it.eldasoft.gene.bl.genmod.ComponiResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;compilaModelloSenzaConnessioneDBResponse" type="java:it.eldasoft.gene.bl.genmod.CompilaModelloSenzaConnessioneDBResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;eliminaFileComposto" type="java:it.eldasoft.gene.bl.genmod.EliminaFileComposto" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiModelloSenzaConnessioneDB" type="java:it.eldasoft.gene.bl.genmod.ComponiModelloSenzaConnessioneDB" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiModelloSenzaConnessioneDBResponse" type="java:it.eldasoft.gene.bl.genmod.ComponiModelloSenzaConnessioneDBResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;compila" type="java:it.eldasoft.gene.bl.genmod.Compila" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;compilaResponse" type="java:it.eldasoft.gene.bl.genmod.CompilaResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:CompositoreException" type="java:it.eldasoft.gene.bl.genmod.CompositoreException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiModelloConParametriResponse" type="java:it.eldasoft.gene.bl.genmod.ComponiModelloConParametriResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiModello" type="java:it.eldasoft.gene.bl.genmod.ComponiModello" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;compilaModello" type="java:it.eldasoft.gene.bl.genmod.CompilaModello" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;eliminaFileCompostoResponse" type="java:it.eldasoft.gene.bl.genmod.EliminaFileCompostoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componi" type="java:it.eldasoft.gene.bl.genmod.Componi" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;compilaModelloSenzaConnessioneDB" type="java:it.eldasoft.gene.bl.genmod.CompilaModelloSenzaConnessioneDB" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;compilaModelloResponse" type="java:it.eldasoft.gene.bl.genmod.CompilaModelloResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiStream" type="java:it.eldasoft.gene.bl.genmod.ComponiStream" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;componiStreamResponse" type="java:it.eldasoft.gene.bl.genmod.ComponiStreamResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;getEstensioniModelloOutputPDF" type="java:it.eldasoft.gene.bl.genmod.GetEstensioniModelloOutputPDF" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://genmod.bl.gene.eldasoft.it" qname="ns:&gt;getEstensioniModelloOutputPDFResponse" type="java:it.eldasoft.gene.bl.genmod.GetEstensioniModelloOutputPDFResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

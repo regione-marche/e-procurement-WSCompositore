@@ -1,0 +1,29 @@
+############ COMPOSITORE C 32BIT ############
+
+
+###### Installazione librerie a 32bit sul sistema operativo a 64bit ######
+
+### CentOS 7
+yum upgrade libstdc++
+yum install libstdc++.i686
+
+### Ubuntu 20.04 LTS
+sudo apt-get install ia32-libs
+
+### Debian 8
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install ia32-libs
+
+### Debian 10
+apt-get install libstdc++6:i386
+
+
+
+###### Rimozione librerie "interne" per usare quelle native del sistema operativo ######
+
+### Rimuovere le seguenti librerie in distribuzione e verificare il funzionamento del compo
+### Se risponde senza queste librerie in genere è molto più performante e moltp meno avido di RAM
+\WSCompositore\WEB-INF\compo\linux\lib\libgcc_s.so.1
+\WSCompositore\WEB-INF\compo\linux\lib\libstdc++.so.6
+\WSCompositore\WEB-INF\compo\linux\lib\ld-linux.so.2
